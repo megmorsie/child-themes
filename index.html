@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Child Themes</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/tan-purple.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h2>Child Themes</h2>
+					<p>Megan Morsie | @megabyterose</p>
+				</section>
+				<section>
+					<h3>Theme Spectrum</h3>
+					<ul>
+						<li>Default Theme (ie Twenty Sixteen)</li>
+						<li>Theme You Found/Bought</li>
+						<li>Child Theme</li>
+						<li>Custom Theme From a Starter/Boilerplate (ie Underscores)</li>
+						<li>Custom Theme Using a CSS Framework (ie Bootstrap)</li>
+						<li>100% Custom Theme</li>
+					</ul>
+					<aside class="notes">
+						As you move into more advanced theme topics, you are able to customize more and have more control, but it's a trade-off for the amount of work/time you want to put into it.
+					</aside>
+				</section>
+				<section>
+					<h3>Reasons to Use a Child Theme</h3>
+					<ul>
+						<li>To Tweak or Enhance a Theme</li>
+						<li>To Learn How Themes Work</li>
+						<li>To Save Time/Hassle (vs. Finding Perfect Theme or Creating a Custom Theme)</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Benefits of Using a Child Theme</h3>
+					<ul>
+						<li>You Can Receive All The Updates From The Parent Theme</li>
+						<li>Good Balance Between Quality/Stability of Parent Theme &amp; Ability to Customize Site</li>
+					</ul>
+					<aside class="notes">
+						There are essentially 3 steps to create a child theme...
+					</aside>
+				</section>
+				<section>
+					<section>
+						<h3>Step 1</h3>
+						<p>Create a folder under: <code>wp-content/themes</code></p>
+						<ul>
+							<li>In FTP Client like FileZilla or Fetch.</li>
+							<li>In File Manager (will become more cumbersome over time).</li>
+						</ul>
+						<small>bit.ly/mc-child-themes</small>
+					</section>
+					<section>
+						<img src="img/ftp-themes.png">
+						<aside class="notes">
+							This is what it looks like in an FTP client.
+						</aside>
+					</section>
+					<section>
+						<img src="img/file-manager-themes.png">
+						<aside class="notes">
+							This is what it would look like in your file manager on your webserver.
+						</aside>
+					</section>
+				</section>
+				<section>
+					<h3>Step 2</h3>
+					<p>Create a stylesheet: <code>style.css</code></p>
+					<pre>/*
+<strong>Theme Name:     Twenty Thirteen Child</strong>
+Theme URI:      http://example.com/
+Description:    Child theme for the Twenty Thirteen theme
+Author:         Your name here
+Author URI:     http://example.com/about/
+<strong>Template:       twentythirteen</strong>
+Version:        0.1.0
+*/</pre>
+					<small>bit.ly/mc-child-themes</small>
+					<aside class="notes">
+						(The bold ones are required.)<br />
+						Theme Name – needs to be unique to your theme<br />
+						Template –  the name of the parent theme directory
+					</aside>
+				</section>
+				<section>
+					<h3>Step 3</h3>
+					<p>Create <code>functions.php</code> file &amp; enqueue parent styles.</p>
+					<pre>function <strong>example_enqueue_styles</strong>() {
+	// Enquque Parent Stylesheet
+	wp_enqueue_style('parent-theme', get_template_directory_uri() .'/style.css');	
+}
+add_action('wp_enqueue_scripts', '<strong>example_enqueue_styles</strong>');</pre>
+					<small>bit.ly/mc-child-themes</small>
+					<aside class="notes">
+						The bold is a function that you can name whatever you want. Note that when using a child theme, the function get_template_directory_uri() will retrieve the parent directory. If you need to use the child theme directory uri, use get_stylesheet_directory_uri.
+					</aside>
+				</section>
+				<section>
+					<section>
+						<h3>Template Hierarchy</h3>
+						<img src="https://developer.wordpress.org/files/2014/10/template-hierarchy.png">
+						<aside class="notes">
+							It's important to start to understand the structure of the template hierarchy. Basically, WordPress will look for certain files but will continue to fallback all the way to the index file.
+						</aside>
+					</section>
+					<section>
+						<img src="img/twentyfifteen-files.png">
+						<p>bit.ly/mc-wp-templates</p>
+						<aside class="notes">
+							When you start to look at the parent theme's files and see something you want to change/remove, copy the file into your child theme folder and modify it.
+						</aside>
+					</section>
+				</section>
+				<section>
+					<h2>Thank You!</h2>
+					<p>Find me on twitter @megabyterose<br />
+						I blog at megabyterose.com</p>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
